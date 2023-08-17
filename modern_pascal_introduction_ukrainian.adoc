@@ -224,9 +224,9 @@ if (A <> nil) and A.IsValid then...
 +
 Це буде нормально, навіть якщо `A` дорівнює `nil`. Ключове слово `nil` — це вказівник, що дорівнює нулю (коли представлено у вигляді числа). Це називається _нульовим вказівником_ у багатьох інших мовах програмування.
 
-// * Using `and` between two boolean values is a logical `and`, and the result is boolean. In other words, the result is `true` only if both operands are `true`, otherwise it's `false`.
+// * Використання `and` між двома логічними значеннями - логічне `and`, і результат теж буде логічним. Іншими словами, результат `true` лише якщо обидва операнди `true`, інкаше - `false`.
 
-// * Using `and` between two integer values is a bit-wise `and`, and the result is integer. The operands are converted to have the same number of bits, and a similar rule is performed bit-by-bit, setting each bit to `0` or `1`. If you do this with potentially negative integer values, you should understand how negative numbers are encoded in memory (_"two's complement"_).
+// * Використання `and` між двома цілочисельними значеннями - побітове `and`, і результат теж цілочисельний. Операнди конвертуються до однакового числа біт, і схоже правило виконується для кожного біта, встановлюючи кожен біт в `0` або `1`. Якщо це виконується над потенційно негативними числами, потрібно розуміти як негативні числа кодуються в пам'яті (_"доповнення до двох"_).
 
 ### Перевірка одного виразу для кількох значень (case)
 
@@ -361,45 +361,45 @@ include::code-samples_ukrainian/for_in_list.lpr[]
 
 ### Вивід, лоґування
 
-To simply output strings in Pascal, use the `Write` or `WriteLn` routine. The latter automatically adds a newline at the end.
+Щоб просто виводити рядки в Pascal, скористайтеся процедурою `Write` або `WriteLn`. Остання автоматично додає новий рядок у кінці.
 
-This is a "magic" routine in Pascal. It takes a variable number of arguments and they can have any type. They are all converted to strings when displaying, with a special syntax to specify padding and number precision.
-
-[source,pascal]
-----
-WriteLn('Hello world!');
-WriteLn('You can output an integer: ', 3 * 4);
-WriteLn('You can pad an integer: ', 666:10);
-WriteLn('You can output a float: ', Pi:1:4);
-----
-
-To explicitly use newline in the string, use the `LineEnding` constant (from FPC RTL). (The _Castle Game Engine_ defines also a shorter `NL` constant.) Pascal strings do not interpret any special backslash sequences, so writing
+Це «чарівна» процедура в Pascal. Вона приймає змінну кількість аргументів, і вони можуть мати будь-який тип. Під час відображення всі вони перетворюються на рядки зі спеціальним синтаксисом для визначення заповнення та точності чисел.
 
 [source,pascal]
 ----
-WriteLn('One line.\nSecond line.'); // INCORRECT example
+WriteLn('Привіт, світ!');
+WriteLn('Ви можете виводити цілі числа: ', 3 * 4);
+WriteLn('Ви можете його відфоматувати: ', 666:10);
+WriteLn('Також можна вивести число з плаваючою крапкою: ', Pi:1:4);
 ----
 
-doesn't work like some of you would think. This will work:
+Щоб явно використати перехід на новий рядок, використовуйте константу `LineEnding` (з бібліотеки FPC RTL). (_Castle Game Engine_ містить коротшу константу `NL`.) Рядки Pascal не інтерпретують жодної спеціальної послідовності, що починається з оберненої косої (`/`), тож наступний код
 
 [source,pascal]
 ----
-WriteLn('One line.' + LineEnding + 'Second line.');
+WriteLn('Один рядок.\nДругий рядок.'); // НЕПРАВИЛЬНИЙ приклад
 ----
 
-or just this:
+не спрацює так, як очікувалось. Ось це працює коректно:
 
 [source,pascal]
 ----
-WriteLn('One line.');
-WriteLn('Second line.');
+WriteLn('Один рядок.' + LineEnding + 'Другий рядок.');
 ----
 
-Note that this will only work in _console_ applications. Make sure you have `{$apptype CONSOLE}` (and *not* `{$apptype GUI}`) defined in your main program file. On some operating systems it actually doesn't matter and will work always (Unix), but on some operating systems trying to write something from a GUI application is an error (Windows).
+Або ось так:
 
-*In the Castle Game Engine:* use `WriteLnLog` or `WriteLnWarning`, never `WriteLn`, to print debug information. They will be always directed to some useful output. On Unix, standard output. On Windows GUI application, log file. On Android, the _Android logging facility_ (visible when you use `adb logcat`). The use of `WriteLn` should be limited to the cases when you write a command-line application (like a 3D model converter / generator) and you know that the _standard output_ is available.
+[source,pascal]
+----
+WriteLn('Один рядок.');
+WriteLn('Другий рядок.');
+----
 
-### Converting to a string
+Зауважте, що це спрацює лише в _консольних_ додатках. Переконайтесь, що зазначено директиву компілятора `{$apptype CONSOLE}` (але *не* `{$apptype GUI}`) в головному файлі програми. В деяких операційних системах це не має значення і завжди працює (Unix), але в інших операційних системах спроба шось вивести з графічного додатку викличе помилку (Windows).
+
+*В Castle Game Engine:* для виведення відлагоджувальної інформації користуйтесь `WriteLnLog` чи `WriteLnWarning`, але не рекомендується використовувати `WriteLn`. Вони завжди виконують вивід в корисному напрямі. В Unix, це стандартний вивід в консоль, в Windows-додатках з графічним інтерфейсом - лоґ-файл, в Android вивід буде направлено в _Android logging facility_ (видимий за допомогою команди `adb logcat`). Використання `WriteLn` має обмежену кількість випадків, наприклад, якщо розробляється застосунок командного рядка (як в конвертері/генераторі 3D-моделей) і точно відомо, що доступний _стандартний вивід_.
+
+### Перетворення даних в рядковий тип
 
 To convert an arbitrary number of arguments to a string (instead of just directly outputting them), you have a couple of options.
 
