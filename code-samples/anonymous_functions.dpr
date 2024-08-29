@@ -1,14 +1,10 @@
-{ Anonymous functions test.
+{ Anonymous functions test. }
 
-  - Delphi docs:
-    https://docwiki.embarcadero.com/RADStudio/Sydney/en/Anonymous_Methods_in_Delphi
-
-  - FPC docs:
-    https://wiki.freepascal.org/FPC_New_Features_Trunk#Support_for_Function_References_and_Anonymous_Functions
-    https://forum.lazarus.freepascal.org/index.php/topic,59468.0.html
-}
-
-{$ifdef FPC} {$mode objfpc}{$H+}{$J-} {$endif}
+{$ifdef FPC}
+  {$mode objfpc}{$H+}{$J-}
+  {$modeswitch functionreferences}
+  {$modeswitch anonymousfunctions}
+{$endif}
 {$apptype CONSOLE}
 
 type

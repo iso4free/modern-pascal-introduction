@@ -18,6 +18,10 @@ modern_pascal_introduction_ukrainian.xml
 /code-samples*/*.ppu
 /code-samples*/*.o
 /code-samples*/*.exe
+/code-samples*/anonymous_functions
+/code-samples*/array_of_const
+/code-samples*/anon_functions_list_map_foreach
+/code-samples*/anon_functions_assignment_test
 /code-samples*/callbacks
 /code-samples*/callbacks_of_object
 /code-samples*/class_properties
@@ -53,6 +57,8 @@ modern_pascal_introduction_ukrainian.xml
 /code-samples*/persistent
 /code-samples*/records
 /code-samples*/static_class_method
+/code-samples*/variant_in_record
+/code-samples*/variant_types
 /code-samples*/with_virtual_methods
 /code-samples*/without_virtual_methods
 /code-samples*/method_with_self_nil
@@ -63,3 +69,6 @@ modern_pascal_introduction_ukrainian.xml
 /code-samples*/*.res
 /code-samples*/*.identcache
 /code-samples*/__recovery
+/code-samples*/delphi_and_fpc_differences/compare_function_pointers
+/code-samples*/delphi_and_fpc_differences/*.o
+/code-samples*/delphi_and_fpc_differences/*.exe
